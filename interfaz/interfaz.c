@@ -26,7 +26,7 @@ void pedirDatos(char mensaje[30], char buffer[100], int minLen, int maxLen) {
       // atras ni pa alante
 
     if (len < minLen || len > maxLen) {
-      printf("El tamaño de la entrada debe ser entre %d y %d caracteres.\n",
+      printf("El tama\244o de la entrada debe ser entre %d y %d caracteres.\n",
              minLen, maxLen);
     }
   } while (strlen(buffer) < minLen || strlen(buffer) > maxLen);
@@ -48,15 +48,16 @@ void pedirAno(char buffer[50], int minAnio, int maxAnio) {
 
   do {
     esValido = 1;
-    pedirDatos("Ingrese el año: ", buffer, 4, 4);
+    pedirDatos("Ingrese el a\244o: ", buffer, 4, 4);
     if (!validarDigitos(buffer)) {
-      printf("El año debe contener solo digitos.\n");
+      printf("El a\244o debe contener solo digitos.\n");
       esValido = 0;
     } else {
       int anio = atoi(buffer);
 
       if (anio < minAnio || anio > maxAnio) {
-        printf("Error: El año debe estar entre %d y %d.\n", minAnio, maxAnio);
+        printf("Error: El a\244o debe estar entre %d y %d.\n", minAnio,
+               maxAnio);
         esValido = 0;
       }
     }
@@ -100,7 +101,7 @@ int pedirCantidadCopiasInt(int minCant, int maxCant) {
     int i;
     for (i = 0; (buffer[i] != '\0' || stop); i++) {
       if (!isdigit(buffer[i])) {
-        printf("Error: Solo se permiten digitos. Caracter invalido: '%c'\n",
+        printf("Error: Solo se permiten digitos. Caracter inv\240lido: '%c'\n",
                buffer[i]);
         esValido = 0;
         stop = true;
@@ -181,7 +182,7 @@ void mostrarLibros(struct libro libros[], int size) {
 void mostrarLibrosResultados(struct libroResultado libros[], int size) {
   printf("Mostrando libros:\n");
   if (size == 0) {
-    printf("Ningún libro se agotó.\n");
+    printf("Ning\242n libro se agot\242.\n");
   } else {
     int i;
     for (i = 0; i < size; i++) {
@@ -194,10 +195,10 @@ void mostrarLibroFullData(struct libro libro) {
   printf("Id: %s\n", libro.id);
   printf("Nombre: %s\n", libro.nombre);
   printf("Autor: %s\n", libro.autor);
-  printf("Publicación: %s\n", libro.publicacion);
+  printf("Publicaci\242n: %s\n", libro.publicacion);
   printf("Materia: %s\n", libro.materia);
   printf("Cantidad de copias: %d\n", libro.cantidadDeCopias);
-  printf("Prestamos:\n");
+  printf("Pr\202stamos:\n");
   int mes;
   for (mes = 0; mes < 12; mes++) {
     printf("%d - %d\n", mes + 1, libro.prestamosPorCadaMes[mes][0]);

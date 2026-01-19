@@ -19,16 +19,16 @@ void menu() {
   struct libro nuevoLibro;
   char materia[100];
   do {
-    printf("\n MENÚ CENTRO DE INVESTIGACION \n");
+    printf("\n MEN\23 CENTRO DE INVESTIGACION \n");
     printf("1. Agregar libro\n");
     printf("2. Mostrar libros\n");
-    printf(
-        "3. Libros que en algún mes fueron prestados todos sus ejemplares\n");
+    printf("3. Libros que en alg\243n mes fueron prestados todos sus "
+           "ejemplares\n");
     printf("4. Libros que pertenecen a una materia dada\n");
-    printf("5. Años de publicacion de los libros\n");
-    printf("6. Libro que más veces se ha prestado\n");
+    printf("5. A\244os de publicacion de los libros\n");
+    printf("6. Libro que m\240s veces se ha prestado\n");
     printf("0. Salir\n");
-    printf("Seleccione una opción: ");
+    printf("Seleccione una opci\242n: ");
     scanf("%d", &opcion);
 
     switch (opcion) {
@@ -51,16 +51,16 @@ void menu() {
       mostrarVariosLibrosFullData(seleccionDeLibros, seleccionDeLibrosSize);
       break;
     case 5:
-      printf("Años de publicacion de los libros\n");
+      printf("A\244os de publicacion de los libros\n");
       break;
     case 6:
-      printf("Libro que más veces se ha prestado\n");
+      printf("Libro que m\240s veces se ha prestado\n");
       break;
     case 0:
       printf("Saliendo del programa...\n");
       break;
     default:
-      printf("Opción no válida. Intente de nuevo.\n");
+      printf("Op\242n no v\240lida. Intente de nuevo.\n");
     }
     printf("Presiona Enter para continuar...");
     system("pause");
