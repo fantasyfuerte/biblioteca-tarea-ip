@@ -264,3 +264,31 @@ void librosPrestadosCompletamante(struct libro libros[], int numLibros,
 
   *size = contador;
 }
+
+struct libro buscarLibroPorId(struct libro libros[100], int size,
+                              char id[100]) {
+  struct libro resultado;
+  bool encontrado = false;
+  int i;
+  for (i = 0; i < size; i++) {
+    if (strcmp(libros[i].id, id) == 0) {
+      resultado = libros[i];
+      encontrado = true;
+    }
+  }
+  if (!encontrado) {
+    resultado.id[0] = '\0';
+    resultado.nombre[0] = '\0';
+    resultado.autor[0] = '\0';
+    resultado.publicacion[0] = '\0';
+    resultado.materia[0] = '\0';
+    resultado.cantidadDeCopias = 0;
+    int mes;
+    for (mes = 0; mes < 12; mes++) {
+      resultado.prestamosPorCadaMes[mes][0] = 0;
+      resultado.prestamosPorCadaMes[mes][1] = 0;
+    }
+  }
+
+  return resultado;
+}

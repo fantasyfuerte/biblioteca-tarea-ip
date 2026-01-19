@@ -12,3 +12,5 @@ void buscarLibrosPorMateria(struct libro libros[100], int size,
 
 void librosPrestadosCompletamante(struct libro libros[], int numLibros,
                                   struct libroResultado resultado[], int *size);
+
+struct libro buscarLibroPorId(struct libro libros[100], int size, char id[100]);

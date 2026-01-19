@@ -6,3 +6,5 @@ void mostrarLibrosResultados(struct libroResultado libros[], int size);
 struct libro pedirLibro();
 void pedirAlpha(char mensaje[30], char buffer[100], int minLen, int maxLen);
 void mostrarVariosLibrosFullData(struct libro libros[], int size);
+void mostrarLibroFullData(struct libro libro);
+void pedirDatos(char mensaje[30], char buffer[100], int minLen, int maxLen);

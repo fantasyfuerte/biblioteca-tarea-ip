@@ -56,10 +56,13 @@ void pedirAlpha(char mensaje[30], char buffer[100], int minLen, int maxLen) {
     salir = true;
     pedirDatos(mensaje, buffer, minLen, maxLen);
     int i;
-    for (i = 0; (buffer[i] != '\0' && salir); i++) {
+    for (i = 0; i < strlen(buffer); i++) {
       if (!isalpha(buffer[i]) && buffer[i] != ' ') {
         salir = false;
       }
+    }
+    if (!salir) {
+      printf("Solo caracteres alfanumericos.\n");
     }
   } while (!salir);
 }

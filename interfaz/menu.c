@@ -18,8 +18,12 @@ void menu() {
 
   struct libro nuevoLibro;
   char materia[100];
+
+  struct libro libroSeleccionado;
+  char id[100];
   do {
-    printf("\n MEN\23 CENTRO DE INVESTIGACION \n");
+    printf("\n MEN\23 CENTRO DE INVESTIGACION. Opciones funcionales: "
+           "1,2,3,4,7,0 \n");
     printf("1. Agregar libro\n");
     printf("2. Mostrar libros\n");
     printf("3. Libros que en alg\243n mes fueron prestados todos sus "
@@ -27,6 +31,7 @@ void menu() {
     printf("4. Libros que pertenecen a una materia dada\n");
     printf("5. A\244os de publicacion de los libros\n");
     printf("6. Libro que m\240s veces se ha prestado\n");
+    printf("7. Devolver libro por identificador\n");
     printf("0. Salir\n");
     printf("Seleccione una opci\242n: ");
     scanf("%d", &opcion);
@@ -55,6 +60,11 @@ void menu() {
       break;
     case 6:
       printf("Libro que m\240s veces se ha prestado\n");
+      break;
+    case 7:
+      pedirDatos("Introduzca el id del libro: ", id, 1, 15);
+      libroSeleccionado = buscarLibroPorId(libros, size, id);
+      mostrarLibroFullData(libroSeleccionado);
       break;
     case 0:
       printf("Saliendo del programa...\n");

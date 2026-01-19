@@ -1,5 +1,5 @@
 struct libro {
-  char id[15];
+  char id[100];
   char nombre[100];
   char autor[100];
   char publicacion[100];
