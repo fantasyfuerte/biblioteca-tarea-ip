@@ -63,9 +63,7 @@ void menu() {
       printf("Opción no válida. Intente de nuevo.\n");
     }
     printf("Presiona Enter para continuar...");
-    getchar(); // profe cambiar esto por system("pause") y system("cls") para
-               // windows
-    getchar();
-    system("clear");
+    system("pause");
+    system("cls");
   } while (opcion != 0);
 }
