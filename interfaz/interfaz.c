@@ -1,11 +1,9 @@
 #include "interfaz.h"
+#include "validaciones.h"
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
-#include <stdio.h>
 #include <string.h>
 
 void pedirDatos(char mensaje[30], char buffer[100], int minLen, int maxLen) {
@@ -32,17 +30,6 @@ void pedirDatos(char mensaje[30], char buffer[100], int minLen, int maxLen) {
   } while (strlen(buffer) < minLen || strlen(buffer) > maxLen);
 }
 
-bool validarDigitos(const char cadena[100]) {
-  bool res = true;
-  int i;
-  for (i = 0; cadena[i] != '\0'; i++) {
-    if (!isdigit(cadena[i])) {
-      res = false;
-    }
-  }
-  return res;
-}
-
 void pedirAno(char buffer[50], int minAnio, int maxAnio) {
   int esValido;
 
@@ -56,8 +43,7 @@ void pedirAno(char buffer[50], int minAnio, int maxAnio) {
       int anio = atoi(buffer);
 
       if (anio < minAnio || anio > maxAnio) {
-        printf("Error: El a\244o debe estar entre %d y %d.\n", minAnio,
-               maxAnio);
+        printf("El a\244o debe estar entre %d y %d\n", minAnio, maxAnio);
         esValido = 0;
       }
     }
@@ -65,23 +51,17 @@ void pedirAno(char buffer[50], int minAnio, int maxAnio) {
 }
 
 void pedirAlpha(char mensaje[30], char buffer[100], int minLen, int maxLen) {
-  int esValido;
-  bool stop = false;
+  bool salir;
   do {
-    esValido = 1;
-
+    salir = true;
     pedirDatos(mensaje, buffer, minLen, maxLen);
     int i;
-    for (i = 0; (buffer[i] != '\0' || stop); i++) {
+    for (i = 0; (buffer[i] != '\0' && salir); i++) {
       if (!isalpha(buffer[i]) && buffer[i] != ' ') {
-        printf("Solo se permiten letras y espacios.\n"
-               "'%c'\n",
-               buffer[i]);
-        esValido = 0;
-        stop = true;
+        salir = false;
       }
     }
-  } while (!esValido);
+  } while (!salir);
 }
 
 int pedirCantidadCopiasInt(int minCant, int maxCant) {
@@ -126,19 +106,19 @@ int pedirCantidadCopiasInt(int minCant, int maxCant) {
 int pedirCopiasPrestadas(int cantidadDeCopias, int mes) {
   int cantidad;
   char tempCantidad[100];
-  bool esValido = false;
+  bool esValido;
   do {
     printf("Ingrese cantidad de copias (entre 1 y %d) para el mes %d: ",
            cantidadDeCopias, mes);
     pedirDatos("", tempCantidad, 1, 4);
     esValido = validarDigitos(tempCantidad);
     if (!esValido) {
-      printf("El cantidad debe contener solo digitos.\n");
+      printf("La cantidad debe contener solo digitos.\n");
     }
     cantidad = atoi(tempCantidad);
     if (cantidad < 1 || cantidad > cantidadDeCopias) {
       printf("La cantidad debe estar entre 1 y %d.\n", cantidadDeCopias);
-      esValido = 0;
+      esValido = false;
     }
   } while (!esValido);
   cantidad = atoi(tempCantidad);
@@ -151,7 +131,7 @@ struct libro pedirLibro() {
   pedirDatos("Id del libro: ", nuevo.id, 3, 15);
   pedirAlpha("Nombre del libro: ", nuevo.nombre, 1, 100);
   pedirAlpha("Autor del libro: ", nuevo.autor, 1, 100);
-  pedirAno(nuevo.publicacion, 1900, 2026);
+  pedirAno(nuevo.publicacion, 1100, 2026);
   pedirAlpha("Materia/Género: ", nuevo.materia, 1, 100);
   nuevo.cantidadDeCopias = pedirCantidadCopiasInt(1, 10);
   int i;
@@ -207,8 +187,12 @@ void mostrarLibroFullData(struct libro libro) {
 
 void mostrarVariosLibrosFullData(struct libro libros[], int size) {
   int i;
-  for (i = 0; i < size; i++) {
-    mostrarLibroFullData(libros[i]);
-    printf("\n---\n");
+  if (size == 0) {
+    printf("No se encontraron libros con esa materia\n");
+  } else {
+    for (i = 0; i < size; i++) {
+      mostrarLibroFullData(libros[i]);
+      printf("\n---\n");
+    }
   }
 }
