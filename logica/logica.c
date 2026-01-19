@@ -188,7 +188,8 @@ int agregarDatosDePrueba(struct libro librosQueSePrestan[100], bool *poblado) {
   int count = 0;
   *poblado = true;
 
-  for (int i = 0; i < 10; i++) {
+  int i;
+  for (i = 0; i < 10; i++) {
     librosQueSePrestan[i] = DatosDePrueba[i];
     count++;
   }
@@ -197,7 +198,8 @@ int agregarDatosDePrueba(struct libro librosQueSePrestan[100], bool *poblado) {
 }
 
 void toLowerCase(char str[100]) {
-  for (int i = 0; str[i] != '\0' && i < 100; i++) {
+  int i;
+  for (i = 0; str[i] != '\0' && i < 100; i++) {
     str[i] = tolower((unsigned char)str[i]);
   }
 }
@@ -219,7 +221,8 @@ void buscarLibrosPorMateria(struct libro libros[100], int size,
       strcpy(seleccionDeLibros[contador].publicacion, libros[i].publicacion);
       strcpy(seleccionDeLibros[contador].materia, libros[i].materia);
       seleccionDeLibros[contador].cantidadDeCopias = libros[i].cantidadDeCopias;
-      for (int mes = 0; mes < 12; mes++) {
+      int mes;
+      for (mes = 0; mes < 12; mes++) {
         seleccionDeLibros[contador].prestamosPorCadaMes[mes][0] =
             libros[i].prestamosPorCadaMes[mes][0];
         seleccionDeLibros[contador].prestamosPorCadaMes[mes][1] =
@@ -243,9 +246,11 @@ void librosPrestadosCompletamante(struct libro libros[], int numLibros,
                                   int *size) {
   int contador = 0;
 
-  for (int i = 0; i < numLibros; i++) {
+  int i;
+  for (i = 0; i < numLibros; i++) {
     int encontrado = 0;
-    for (int mes = 0; mes < 12; mes++) {
+    int mes;
+    for (mes = 0; mes < 12; mes++) {
       if (libros[i].prestamosPorCadaMes[mes][1] >= libros[i].cantidadDeCopias) {
         strcpy(resultado[contador].titulo, libros[i].nombre);
         strcpy(resultado[contador].id, libros[i].id);

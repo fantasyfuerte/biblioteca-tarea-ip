@@ -34,7 +34,8 @@ void pedirDatos(char mensaje[30], char buffer[100], int minLen, int maxLen) {
 
 bool validarDigitos(const char cadena[100]) {
   bool res = true;
-  for (int i = 0; cadena[i] != '\0'; i++) {
+  int i;
+  for (i = 0; cadena[i] != '\0'; i++) {
     if (!isdigit(cadena[i])) {
       res = false;
     }
