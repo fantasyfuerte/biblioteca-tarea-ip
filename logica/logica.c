@@ -269,9 +269,13 @@ struct libro buscarLibroPorId(struct libro libros[100], int size,
                               char id[100]) {
   struct libro resultado;
   bool encontrado = false;
+  char tempId[100];
+  toLowerCase(id);
   int i;
   for (i = 0; i < size; i++) {
-    if (strcmp(libros[i].id, id) == 0) {
+    strcpy(tempId, libros[i].id);
+    toLowerCase(tempId);
+    if (strcmp(tempId, id) == 0) {
       resultado = libros[i];
       encontrado = true;
     }
