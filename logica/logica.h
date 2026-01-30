@@ -14,3 +14,9 @@ void librosPrestadosCompletamante(struct libro libros[], int numLibros,
                                   struct libroResultado resultado[], int *size);
 
 struct libro buscarLibroPorId(struct libro libros[100], int size, char id[100]);
+
+void buscarLibroMasPrestado(struct libro libros[100], int size,
+                            struct libro *libro);
+
+void obtenerAniosDeLibros(char aniosDeLibros[50][5], int *sizeAniosDeLibros,
+                          struct libro libros[], int size);

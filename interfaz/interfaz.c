@@ -11,7 +11,7 @@ void pedirDatos(char mensaje[30], char buffer[100], int minLen, int maxLen) {
     printf("%s", mensaje);
 
     fgets(buffer, maxLen + 2, stdin);
-    size_t len = strlen(buffer);
+    int len = strlen(buffer);
     if (len > 0 && buffer[len - 1] == '\n') {
       buffer[len - 1] = '\0';
       len--;
@@ -136,14 +136,11 @@ struct libro pedirLibro() {
   pedirAlpha("Autor del libro: ", nuevo.autor, 1, 100);
   pedirAno(nuevo.publicacion, 1100, 2026);
   pedirAlpha("Materia/Género: ", nuevo.materia, 1, 100);
-  nuevo.cantidadDeCopias = pedirCantidadCopiasInt(1, 10);
+  nuevo.cantidadDeCopias = pedirCantidadCopiasInt(1, 50);
   int i;
   for (i = 0; i < 12; i++) {
-    int j;
-    for (j = 0; j < 2; j++) {
-      nuevo.prestamosPorCadaMes[i][j] =
-          pedirCopiasPrestadas(nuevo.cantidadDeCopias, i + 1);
-    }
+    nuevo.prestamosPorCadaMes[i][1] =
+        pedirCopiasPrestadas(nuevo.cantidadDeCopias, i + 1);
   }
 
   printf("\nLibro agregado correctamente.\n");
@@ -175,16 +172,20 @@ void mostrarLibrosResultados(struct libroResultado libros[], int size) {
 }
 
 void mostrarLibroFullData(struct libro libro) {
-  printf("Id: %s\n", libro.id);
-  printf("Nombre: %s\n", libro.nombre);
-  printf("Autor: %s\n", libro.autor);
-  printf("Publicaci\242n: %s\n", libro.publicacion);
-  printf("Materia: %s\n", libro.materia);
-  printf("Cantidad de copias: %d\n", libro.cantidadDeCopias);
-  printf("Pr\202stamos:\n");
-  int mes;
-  for (mes = 0; mes < 12; mes++) {
-    printf("%d - %d\n", mes + 1, libro.prestamosPorCadaMes[mes][0]);
+  if (strlen(libro.id) != 0) {
+    printf("Id: %s\n", libro.id);
+    printf("Nombre: %s\n", libro.nombre);
+    printf("Autor: %s\n", libro.autor);
+    printf("Publicaci\242n: %s\n", libro.publicacion);
+    printf("Materia: %s\n", libro.materia);
+    printf("Cantidad de copias: %d\n", libro.cantidadDeCopias);
+    printf("Pr\202stamos:\n");
+    int mes;
+    for (mes = 0; mes <= 11; mes++) {
+      printf("%d - %d\n", mes + 1, libro.prestamosPorCadaMes[mes][1]);
+    }
+  } else {
+    printf("Libro no encontrado.\n");
   }
 }
 
@@ -196,6 +197,20 @@ void mostrarVariosLibrosFullData(struct libro libros[], int size) {
     for (i = 0; i < size; i++) {
       mostrarLibroFullData(libros[i]);
       printf("\n---\n");
+    }
+  }
+}
+
+void mostrarLibrosPorAnio(struct libro libros[], int size,
+                          char aniosDeLibros[50][5], int *sizeAniosDeLibros) {
+  int i;
+  int j;
+  for (i = 0; i < *sizeAniosDeLibros; i++) {
+    printf("\n\n\n%s\n\n", aniosDeLibros[i]);
+    for (j = 0; j < size; j++) {
+      if (strcmp(aniosDeLibros[i], libros[j].publicacion) == 0) {
+        mostrarLibroFullData(libros[j]);
+      }
     }
   }
 }

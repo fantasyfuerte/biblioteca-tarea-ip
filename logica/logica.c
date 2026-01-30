@@ -1,6 +1,7 @@
 #include "logica.h"
 #include <ctype.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <string.h>
 
 struct libro DatosDePrueba[10] = {{"LIB001",
@@ -166,10 +167,10 @@ struct libro DatosDePrueba[10] = {{"LIB001",
                                     {11, 2},
                                     {12, 3}}},
                                   {"LIB010",
-                                   "La Odisea",
-                                   "Homero",
-                                   "Siglo VIII a.C.",
-                                   "Epica",
+                                   "Un Libro Diferente",
+                                   "Ryan Bool",
+                                   "1900",
+                                   "Romance",
                                    8,
                                    {{1, 3},
                                     {2, 4},
@@ -295,4 +296,44 @@ struct libro buscarLibroPorId(struct libro libros[100], int size,
   }
 
   return resultado;
+}
+
+void buscarLibroMasPrestado(struct libro libros[100], int size,
+                            struct libro *libro) {
+  int i;
+  int j;
+  int cantidad = 0;
+  int tempCantidad;
+  for (i = 0; i < size; i++) {
+    tempCantidad = 0;
+    for (j = 0; j <= 11; j++) {
+      tempCantidad += libros[i].prestamosPorCadaMes[j][1];
+    }
+    if (tempCantidad > cantidad) {
+      cantidad = tempCantidad;
+      *libro = libros[i];
+    }
+  }
+}
+
+void obtenerAniosDeLibros(char aniosDeLibros[50][5], int *sizeAniosDeLibros,
+                          struct libro *libros, int size) {
+  int i;
+  int j;
+  for (i = 0; i < size; i++) {
+    char anioActual[5];
+    strcpy(anioActual, libros[i].publicacion);
+
+    int existe = 0;
+    for (j = 0; j < *sizeAniosDeLibros; j++) {
+      if (strcmp(anioActual, aniosDeLibros[j]) == 0) {
+        existe = 1;
+      }
+    }
+
+    if (!existe && *sizeAniosDeLibros < 50) {
+      strcpy(aniosDeLibros[*sizeAniosDeLibros], anioActual);
+      *sizeAniosDeLibros = *sizeAniosDeLibros + 1;
+    }
+  }
 }

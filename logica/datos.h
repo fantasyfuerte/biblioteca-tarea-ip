@@ -2,7 +2,7 @@ struct libro {
   char id[100];
   char nombre[100];
   char autor[100];
-  char publicacion[100];
+  char publicacion[5];
   char materia[100];
   int cantidadDeCopias;
   int prestamosPorCadaMes[12][2];
