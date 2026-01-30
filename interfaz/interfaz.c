@@ -52,17 +52,58 @@ void pedirAno(char buffer[50], int minAnio, int maxAnio) {
 
 void pedirAlpha(char mensaje[30], char buffer[100], int minLen, int maxLen) {
   bool salir;
+  int contadorDeEspacios = 0;
   do {
     salir = true;
     pedirDatos(mensaje, buffer, minLen, maxLen);
+    contadorDeEspacios = 0;
     int i;
     for (i = 0; i < strlen(buffer); i++) {
       if (!isalpha(buffer[i]) && buffer[i] != ' ') {
         salir = false;
+      } else if (buffer[i] == ' ') {
+        contadorDeEspacios++;
+      }
+      if (contadorDeEspacios == 2)
+        salir = false;
+    }
+    if (!salir) {
+      if (contadorDeEspacios == 2)
+        printf("No pueden existir dos espacios seguidos\n");
+      else
+        printf("Solo caracteres alfanumericos.\n");
+    }
+  } while (!salir);
+}
+
+void pedirId(char mensaje[30], char buffer[100], int minLen, int maxLen,
+             struct libro libros[], int size) {
+  bool salir;
+  int contadorDeEspacios = 0;
+  do {
+    salir = true;
+    contadorDeEspacios = 0;
+    pedirDatos(mensaje, buffer, minLen, maxLen);
+    int i;
+    for (i = 0; i < strlen(buffer); i++) {
+      if (buffer[i] == ' ') {
+        contadorDeEspacios++;
+      }
+      if (contadorDeEspacios == 2)
+        salir = false;
+    }
+    int j;
+    for (j = 0; i < size; i++) {
+      if (strcmp(buffer, libros[i].id) == 0) {
+        salir = false;
       }
     }
     if (!salir) {
-      printf("Solo caracteres alfanumericos.\n");
+      if (contadorDeEspacios == 2)
+        printf("No pueden existir dos espacios seguidos\n");
+      else {
+        printf("El id ya exite\n");
+      }
     }
   } while (!salir);
 }
@@ -128,10 +169,10 @@ int pedirCopiasPrestadas(int cantidadDeCopias, int mes) {
   return cantidad;
 }
 
-struct libro pedirLibro() {
+struct libro pedirLibro(struct libro libros[], int size) {
   struct libro nuevo;
 
-  pedirDatos("Id del libro: ", nuevo.id, 3, 15);
+  pedirId("Id del libro: ", nuevo.id, 3, 15, libros, size);
   pedirAlpha("Nombre del libro: ", nuevo.nombre, 1, 100);
   pedirAlpha("Autor del libro: ", nuevo.autor, 1, 100);
   pedirAno(nuevo.publicacion, 1100, 2026);

@@ -3,7 +3,7 @@
 void menu();
 void mostrarLibros(struct libro libros[], int size);
 void mostrarLibrosResultados(struct libroResultado libros[], int size);
-struct libro pedirLibro();
+struct libro pedirLibro(struct libro libros[], int size);
 void pedirAlpha(char mensaje[30], char buffer[100], int minLen, int maxLen);
 void mostrarVariosLibrosFullData(struct libro libros[], int size);
 void mostrarLibroFullData(struct libro libro);

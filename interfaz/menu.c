@@ -45,7 +45,7 @@ void menu() {
     } else {
       switch (opcion) {
       case 1:
-        nuevoLibro = pedirLibro();
+        nuevoLibro = pedirLibro(libros, size);
         agregarLibro(&size, libros, nuevoLibro);
         printf("Se agrego %s satisfactoriamente\n", nuevoLibro.nombre);
         break;
